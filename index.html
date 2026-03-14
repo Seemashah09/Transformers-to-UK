@@ -50,20 +50,17 @@ html, body { height: 100%; margin: 0; }
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full font-sans text-gray-800 antialiased">
-  <div class="app-root" id="app-root">
-   <!-- NAVIGATION -->
+  <div class="app-root" id="app-root"><!-- NAVIGATION -->
    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background:rgba(12,20,70,0.95); backdrop-filter:blur(12px);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-     <div class="flex items-center justify-between h-16">
-      <a href="#" onclick="navigateTo('home');return false;" class="flex items-center gap-2">
+     <div class="flex items-center justify-between h-16"><a href="#" onclick="navigateTo('home');return false;" class="flex items-center gap-2">
        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:#f59e0b;">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="#0c1446" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="#0c1446" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+         <path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />
         </svg>
        </div><span id="nav-title" class="text-white font-bold text-lg tracking-tight">Transformers to UK</span> </a>
-      <div class="hidden lg:flex items-center gap-1">
-       <a href="#" onclick="navigateTo('home');return false;" class="nav-link text-white/90 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
-       <div class="relative group">
-        <button class="nav-link text-white/90 hover:text-white px-3 py-2 text-sm font-medium flex items-center gap-1">Scholarships <i data-lucide="chevron-down" style="width:14px;height:14px;"></i></button>
+      <div class="hidden lg:flex items-center gap-1"><a href="#" onclick="navigateTo('home');return false;" class="nav-link text-white/90 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
+       <div class="relative group"><button class="nav-link text-white/90 hover:text-white px-3 py-2 text-sm font-medium flex items-center gap-1">Scholarships <i data-lucide="chevron-down" style="width:14px;height:14px;"></i></button>
         <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-96 overflow-y-auto z-50 border border-gray-100">
          <div class="p-2" id="nav-scholarship-list"></div>
         </div>
@@ -72,8 +69,7 @@ html, body { height: 100%; margin: 0; }
      </div>
     </div><!-- Mobile Menu -->
     <div id="mobile-menu" class="lg:hidden hidden border-t border-white/10">
-     <div class="px-4 py-3 space-y-1 max-h-80 overflow-y-auto" style="background:rgba(12,20,70,0.98);">
-      <a href="#" onclick="navigateTo('home');toggleMobileMenu();return false;" class="block text-white/90 hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-white/10">Home</a>
+     <div class="px-4 py-3 space-y-1 max-h-80 overflow-y-auto" style="background:rgba(12,20,70,0.98);"><a href="#" onclick="navigateTo('home');toggleMobileMenu();return false;" class="block text-white/90 hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-white/10">Home</a>
       <div class="px-3 py-2 text-xs text-amber-400 font-semibold uppercase tracking-wider">
        Scholarships
       </div>
@@ -89,7 +85,8 @@ html, body { height: 100%; margin: 0; }
       <div>
        <div class="flex items-center gap-2 mb-4">
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#f59e0b;">
-         <svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="#0c1446" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />
+         <svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="#0c1446" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />
          </svg>
         </div><span id="footer-title" class="text-white font-bold">Transformers to UK</span>
        </div>
@@ -97,8 +94,7 @@ html, body { height: 100%; margin: 0; }
       </div>
       <div>
        <h3 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Quick Links</h3>
-       <div class="space-y-2">
-        <a href="#" onclick="navigateTo('home');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Home</a> <a href="#" onclick="navigateTo('tools');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Tools &amp; Calculators</a> <a href="#" onclick="navigateTo('about');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">About Us</a> <a href="#" onclick="navigateTo('contact');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Contact</a>
+       <div class="space-y-2"><a href="#" onclick="navigateTo('home');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Home</a> <a href="#" onclick="navigateTo('tools');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Tools &amp; Calculators</a> <a href="#" onclick="navigateTo('about');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">About Us</a> <a href="#" onclick="navigateTo('contact');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Contact</a>
        </div>
       </div>
       <div>
@@ -107,8 +103,7 @@ html, body { height: 100%; margin: 0; }
       </div>
       <div>
        <h3 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Legal</h3>
-       <div class="space-y-2">
-        <a href="#" onclick="navigateTo('disclaimer');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Disclaimer</a> <a href="#" onclick="navigateTo('terms');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Terms &amp; Conditions</a> <a href="#" onclick="navigateTo('privacy');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Privacy Policy</a>
+       <div class="space-y-2"><a href="#" onclick="navigateTo('disclaimer');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Disclaimer</a> <a href="#" onclick="navigateTo('terms');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Terms &amp; Conditions</a> <a href="#" onclick="navigateTo('privacy');return false;" class="block text-white/60 hover:text-amber-400 text-sm transition-colors">Privacy Policy</a>
        </div>
       </div>
      </div>
@@ -1296,5 +1291,5 @@ buildNavLists();
 navigateTo("home");
 lucide.createIcons();
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dc65e25549f2704',t:'MTc3MzUyMzcwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dc66fdb43fe2704',t:'MTc3MzUyNDQyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
