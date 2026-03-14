@@ -1,596 +1,745 @@
 <!doctype html>
 <html lang="en" class="h-full">
  <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transformers to UK | 2026 Scholarships</title>
+  <title>Transformers To UK - Scholarship Portal</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
   <style>
-        :root {
-            --gold: #D4AF37;
-            --dark-gold: #996515;
-            --black: #0a0a0a;
-            --white: #ffffff;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
+            padding: 0;
         }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .gold-gradient {
-            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
-        .premium-border {
-            border: 1px solid var(--gold);
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
         }
-        .premium-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .transition-all {
             transition: all 0.3s ease;
         }
-        .premium-card:hover {
-            border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.05);
+
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.8);
         }
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: var(--gold);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
-        
-        /* Custom scrollbar for premium look */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: var(--dark-gold); border-radius: 4px; }
-        
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+
+        .nav-link.active {
+            border-bottom: 2px solid currentColor;
         }
     </style>
   <style>body { box-sizing: border-box; }</style>
  </head>
- <body class="h-full overflow-hidden">
-  <div id="app-wrapper" class="h-full w-full overflow-auto flex flex-col bg-[#0a0a0a]">
+ <body class="h-full overflow-auto bg-slate-50 text-slate-900">
+  <!-- Main Wrapper -->
+  <div id="app-wrapper" class="w-full min-h-full flex flex-col relative overflow-x-hidden">
    <!-- Navigation -->
-   <nav class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#D4AF37]/30 px-6 py-4">
-    <div class="max-w-4xl mx-auto flex justify-between items-center">
-     <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
-      <i data-lucide="graduation-cap" class="text-[#D4AF37] w-8 h-8"></i> <span class="font-serif text-xl tracking-wider uppercase gold-gradient">Transformers to UK</span>
-     </div>
-     <div class="hidden md:flex gap-6 text-xs uppercase tracking-widest font-semibold">
-      <button onclick="showSection('home')" class="nav-link">Home</button> <button onclick="showSection('scholarships')" class="nav-link">Scholarships</button> <button onclick="showSection('tools')" class="nav-link">Tools</button> <button onclick="showSection('about')" class="nav-link">About</button>
-     </div><button class="md:hidden" onclick="toggleMobileMenu()"> <i data-lucide="menu" class="text-[#D4AF37]"></i> </button>
+   <nav id="main-nav" class="sticky top-0 z-50 glass-effect border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+     <div id="logo-icon" class="w-10 h-10 bg-sky-800 rounded-lg flex items-center justify-center text-white">
+      <i data-lucide="graduation-cap"></i>
+     </div><span id="nav-brand" class="font-bold text-xl tracking-tight text-sky-900">Transformers To UK</span>
     </div>
-   </nav><!-- Main Content Areas -->
-   <main class="flex-grow">
-    <!-- Hero Section -->
-    <section id="home-section" class="section py-20 px-6 max-w-4xl mx-auto">
-     <div class="text-center mb-16">
-      <h1 id="display-headline" class="font-serif text-4xl md:text-6xl mb-6 leading-tight">Discover Fully Funded UK Scholarships 2026</h1>
-      <p id="display-subheadline" class="text-[#D4AF37]/80 text-lg mb-10 max-w-2xl mx-auto">Step-by-step guides, official contacts, and deadlines.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-       <button onclick="showSection('scholarships')" id="display-cta-explore" class="bg-[#D4AF37] text-[#0a0a0a] px-8 py-4 rounded-none font-bold tracking-tighter hover:bg-[#996515] transition-colors"> EXPLORE SCHOLARSHIPS → </button> <button onclick="showSection('tools')" id="display-cta-check" class="border border-[#D4AF37] text-[#D4AF37] px-8 py-4 rounded-none font-bold tracking-tighter hover:bg-[#D4AF37]/10 transition-colors"> CHECK ELIGIBILITY → </button>
-      </div>
-     </div><!-- About Overview -->
-     <div id="about-overview" class="mb-20 pt-10 border-t border-[#D4AF37]/20">
-      <h2 class="font-serif text-2xl mb-6 gold-gradient uppercase tracking-widest text-center">Your Gateway to Excellence</h2>
-      <p class="text-white/70 leading-relaxed text-center max-w-3xl mx-auto mb-10">Transformers to UK is the definitive digital portal for international students seeking transformation through British education. We provide verified university contacts, precise eligibility data, and a suite of calculators to navigate your funding journey.</p>
-     </div><!-- University Vertical List (Replacing 4-column grid as requested) -->
-     <div class="mb-20">
-      <h3 class="font-serif text-xl mb-10 text-center uppercase tracking-widest">Target Universities 2026</h3>
-      <div class="space-y-4" id="university-list">
-       <!-- Universities added individually and vertically -->
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">University of Oxford</h4>
-         <p class="text-xs text-white/50">Postgraduate &amp; PhD Funding</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">University of Cambridge</h4>
-         <p class="text-xs text-white/50">Gates Cambridge Scholarships</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">UCL (University College London)</h4>
-         <p class="text-xs text-white/50">Global Excellence Awards</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">LSE</h4>
-         <p class="text-xs text-white/50">Graduate Support Scheme</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">Imperial College London</h4>
-         <p class="text-xs text-white/50">President's PhD Scholarships</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div><!-- More Unis... Adding vertically as requested -->
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">University of Edinburgh</h4>
-         <p class="text-xs text-white/50">Global Scholars Program</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">University of Glasgow</h4>
-         <p class="text-xs text-white/50">International Leadership Scholarships</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">University of Bradford</h4>
-         <p class="text-xs text-white/50">Global Development Scholarships</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">University of Hull</h4>
-         <p class="text-xs text-white/50">Fairer Future Scholarships</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-       </div>
-       <div class="premium-card p-6 flex justify-between items-center group cursor-pointer">
-        <div>
-         <h4 class="text-lg font-bold group-hover:text-[#D4AF37]">Bangor University</h4>
-         <p class="text-xs text-white/50">Vice-Chancellor's Award</p>
-        </div><i data-lucide="chevron-right" class="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+    <div class="hidden md:flex items-center gap-8">
+     <button onclick="navigate('home')" class="nav-link font-medium hover:text-sky-600 transition-all">Home</button> <button onclick="navigate('scholarships')" class="nav-link font-medium hover:text-sky-600 transition-all">Scholarships</button> <button onclick="navigate('tools')" class="nav-link font-medium hover:text-sky-600 transition-all">Tools/Calculators</button> <button onclick="navigate('blog')" class="nav-link font-medium hover:text-sky-600 transition-all">Blog</button> <button onclick="navigate('about')" class="nav-link font-medium hover:text-sky-600 transition-all">About</button>
+    </div><button onclick="navigate('eligibility')" id="cta-button" class="bg-sky-800 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-sky-700 transition-all shadow-md"> Check Eligibility </button>
+   </nav><!-- View Containers -->
+   <main id="view-container" class="flex-grow">
+    <!-- HOME VIEW -->
+    <section id="view-home" class="view active">
+     <!-- Hero Section -->
+     <div id="hero-bg" class="bg-gradient-to-br from-sky-900 via-sky-800 to-indigo-900 text-white py-24 px-6 text-center">
+      <div class="max-w-4xl mx-auto">
+       <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">Discover Fully Funded UK Scholarships 2026</h1>
+       <p id="hero-subtitle" class="text-xl md:text-2xl text-sky-100 mb-10 opacity-90">Navigate your path to British higher education with expert guides, deadline trackers, and eligibility tools.</p>
+       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="navigate('scholarships')" class="w-full sm:w-auto px-8 py-4 bg-white text-sky-900 rounded-xl font-bold text-lg hover:bg-sky-50 transition-all shadow-xl flex items-center justify-center gap-2"> Explore Scholarships <i data-lucide="arrow-right" class="w-5 h-5"></i> </button> <button onclick="navigate('eligibility')" class="w-full sm:w-auto px-8 py-4 bg-sky-700 border border-sky-400 text-white rounded-xl font-bold text-lg hover:bg-sky-600 transition-all shadow-xl"> Check Eligibility </button>
        </div>
       </div>
-     </div><!-- How It Works -->
-     <div class="mb-20">
-      <h3 class="font-serif text-xl mb-10 text-center uppercase tracking-widest">The Transformation Process</h3>
-      <div class="space-y-8 max-w-xl mx-auto">
-       <div class="flex gap-6 items-start">
-        <span class="text-4xl font-serif text-[#D4AF37]/30">01</span>
-        <div>
-         <h4 class="font-bold text-[#D4AF37] mb-2 uppercase">Research &amp; Select</h4>
-         <p class="text-sm text-white/70">Browse our 2026 scholarship catalog and select programs matching your profile.</p>
-        </div>
+     </div><!-- University Grid -->
+     <div class="max-w-7xl mx-auto py-20 px-6">
+      <div class="text-center mb-16">
+       <h2 class="text-3xl md:text-4xl font-bold mb-4">Partner Universities &amp; Destinations</h2>
+       <p class="text-slate-500 max-w-2xl mx-auto">Access information for the UK's most prestigious institutions and regional excellence centers.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" id="university-grid">
+       <!-- Filled by JS -->
+      </div>
+     </div><!-- How it Works -->
+     <div class="bg-white py-20 px-6 border-y border-slate-100">
+      <div class="max-w-7xl mx-auto">
+       <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold">Your Journey in 5 Steps</h2>
        </div>
-       <div class="flex gap-6 items-start">
-        <span class="text-4xl font-serif text-[#D4AF37]/30">02</span>
-        <div>
-         <h4 class="font-bold text-[#D4AF37] mb-2 uppercase">Verify Eligibility</h4>
-         <p class="text-sm text-white/70">Use our Eligibility Checker to ensure you meet GPA and residency requirements.</p>
+       <div class="grid md:grid-cols-5 gap-8">
+        <div class="text-center group">
+         <div class="w-16 h-16 bg-sky-100 text-sky-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all font-bold text-xl">
+          1
+         </div>
+         <h3 class="font-bold mb-2">Research</h3>
+         <p class="text-sm text-slate-500">Find courses and scholarships matching your profile.</p>
         </div>
-       </div>
-       <div class="flex gap-6 items-start">
-        <span class="text-4xl font-serif text-[#D4AF37]/30">03</span>
-        <div>
-         <h4 class="font-bold text-[#D4AF37] mb-2 uppercase">Prepare Documents</h4>
-         <p class="text-sm text-white/70">Gather academic transcripts, CV, and letters of recommendation as per the guides.</p>
+        <div class="text-center group">
+         <div class="w-16 h-16 bg-sky-100 text-sky-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all font-bold text-xl">
+          2
+         </div>
+         <h3 class="font-bold mb-2">Check</h3>
+         <p class="text-sm text-slate-500">Use our eligibility tool to verify requirements.</p>
         </div>
-       </div>
-       <div class="flex gap-6 items-start">
-        <span class="text-4xl font-serif text-[#D4AF37]/30">04</span>
-        <div>
-         <h4 class="font-bold text-[#D4AF37] mb-2 uppercase">Direct Contact</h4>
-         <p class="text-sm text-white/70">Reach out to official university contacts provided in our detail pages.</p>
+        <div class="text-center group">
+         <div class="w-16 h-16 bg-sky-100 text-sky-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all font-bold text-xl">
+          3
+         </div>
+         <h3 class="font-bold mb-2">Apply</h3>
+         <p class="text-sm text-slate-500">Submit applications through official university portals.</p>
         </div>
-       </div>
-       <div class="flex gap-6 items-start">
-        <span class="text-4xl font-serif text-[#D4AF37]/30">05</span>
-        <div>
-         <h4 class="font-bold text-[#D4AF37] mb-2 uppercase">Submit Application</h4>
-         <p class="text-sm text-white/70">Follow our step-by-step submission guide to finalize your application before the deadline.</p>
+        <div class="text-center group">
+         <div class="w-16 h-16 bg-sky-100 text-sky-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all font-bold text-xl">
+          4
+         </div>
+         <h3 class="font-bold mb-2">Fund</h3>
+         <p class="text-sm text-slate-500">Apply for Chevening, Commonwealth or University funding.</p>
+        </div>
+        <div class="text-center group">
+         <div class="w-16 h-16 bg-sky-100 text-sky-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all font-bold text-xl">
+          5
+         </div>
+         <h3 class="font-bold mb-2">Succeed</h3>
+         <p class="text-sm text-slate-500">Secure your CAS and apply for your Student Visa.</p>
         </div>
        </div>
       </div>
      </div>
-    </section><!-- Scholarship Listings (Blogs) -->
-    <section id="scholarships-section" class="hidden py-20 px-6 max-w-4xl mx-auto">
-     <h2 class="font-serif text-3xl mb-12 text-center gold-gradient uppercase tracking-widest">Scholarship Catalog 2026</h2>
-     <div id="blog-container" class="space-y-6">
-      <!-- Dynamically generated blog cards (Vertical List) -->
+    </section><!-- SCHOLARSHIPS VIEW -->
+    <section id="view-scholarships" class="view hidden py-20 px-6 max-w-7xl mx-auto">
+     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
+      <h2 class="text-4xl font-bold">Top Funded Scholarships 2026</h2><button onclick="navigate('tools')" class="px-6 py-3 bg-sky-600 text-white rounded-lg font-bold hover:bg-sky-700 transition-all flex items-center gap-2 whitespace-nowrap"> <i data-lucide="calculator"></i> Tools/Calculators </button>
      </div>
-    </section><!-- Tools & Calculators -->
-    <section id="tools-section" class="hidden py-20 px-6 max-w-4xl mx-auto">
-     <h2 class="font-serif text-3xl mb-12 text-center gold-gradient uppercase tracking-widest">Academic Tools</h2>
-     <div class="space-y-12">
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="scholarship-list">
+      <!-- Dynamic List -->
+     </div>
+    </section><!-- TOOLS VIEW -->
+    <section id="view-tools" class="view hidden py-20 px-6 max-w-7xl mx-auto">
+     <h2 class="text-4xl font-bold mb-12 text-center">Student Success Tools</h2>
+     <div class="grid lg:grid-cols-3 gap-8">
       <!-- Tuition Calculator -->
-      <div class="premium-card p-8">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
        <div class="flex items-center gap-3 mb-6">
-        <i data-lucide="calculator" class="text-[#D4AF37]"></i>
-        <h3 class="text-xl font-bold uppercase tracking-widest">Tuition &amp; Living Calculator</h3>
+        <i data-lucide="calculator" class="text-sky-600 w-6 h-6"></i>
+        <h3 class="text-2xl font-bold">Tuition Calculator</h3>
        </div>
        <div class="space-y-4">
         <div>
-         <label class="block text-xs uppercase tracking-widest mb-2 text-white/60">Tuition Fees (£)</label> <input type="number" id="calc-tuition" placeholder="e.g. 25000" class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-[#D4AF37]">
+         <label class="block text-sm font-medium mb-1">Study Level</label> <select id="calc-level" class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none"> <option value="ug">Undergraduate (Bachelors)</option> <option value="pg">Postgraduate (Masters)</option> <option value="phd">PhD / Research</option> </select>
         </div>
         <div>
-         <label class="block text-xs uppercase tracking-widest mb-2 text-white/60">Estimated Living Costs (£)</label> <input type="number" id="calc-living" placeholder="e.g. 12000" class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-[#D4AF37]">
-        </div>
-        <div>
-         <label class="block text-xs uppercase tracking-widest mb-2 text-white/60">Scholarship Amount (£)</label> <input type="number" id="calc-grant" placeholder="e.g. 5000" class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-[#D4AF37]">
-        </div><button onclick="calculateFinance()" class="w-full bg-[#D4AF37] text-[#0a0a0a] py-4 font-bold uppercase">Calculate Balance</button>
-        <div id="calc-result" class="hidden mt-6 pt-6 border-t border-white/10 text-center">
-         <p class="text-xs uppercase text-white/50 mb-1">Total Self-Funded Required</p>
-         <p id="calc-amount" class="text-3xl font-serif text-[#D4AF37]">£0</p>
+         <label class="block text-sm font-medium mb-1">Field of Study</label> <select id="calc-field" class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none"> <option value="humanities">Humanities &amp; Social Sciences</option> <option value="stem">STEM (Science, Tech, Eng, Math)</option> <option value="medicine">Medicine &amp; Dentistry</option> <option value="business">Business &amp; MBA</option> </select>
+        </div><button onclick="calculateTuition()" class="w-full py-3 bg-sky-800 text-white rounded-lg font-bold hover:bg-sky-700 transition-all">Estimate Cost</button>
+        <div id="calc-result" class="mt-4 p-4 bg-sky-50 rounded-lg hidden text-center">
+         <p class="text-slate-600 text-sm">Estimated Annual Fee:</p>
+         <p class="text-2xl font-bold text-sky-900" id="calc-amount">£0.00</p>
+         <p class="text-xs text-slate-500 mt-2">* Estimates based on 2026 average fees</p>
         </div>
        </div>
-      </div><!-- Eligibility Checker -->
-      <div class="premium-card p-8">
+      </div><!-- Eligibility Quick Calculator -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
        <div class="flex items-center gap-3 mb-6">
-        <i data-lucide="check-circle" class="text-[#D4AF37]"></i>
-        <h3 class="text-xl font-bold uppercase tracking-widest">Eligibility Checker</h3>
+        <i data-lucide="checkmark-circle" class="text-emerald-600 w-6 h-6"></i>
+        <h3 class="text-2xl font-bold">Quick Eligibility</h3>
        </div>
        <div class="space-y-4">
-        <input type="text" id="user-name" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-[#D4AF37]"> <select id="user-degree" class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-[#D4AF37]"> <option value="" class="bg-[#0a0a0a]">Select Degree Level</option> <option value="Undergraduate" class="bg-[#0a0a0a]">Undergraduate</option> <option value="Postgraduate" class="bg-[#0a0a0a]">Postgraduate</option> <option value="PhD" class="bg-[#0a0a0a]">PhD</option> </select> <input type="number" step="0.1" id="user-gpa" placeholder="Current GPA (e.g. 3.5)" class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-[#D4AF37]"> <button onclick="checkEligibility()" id="check-btn" class="w-full border border-[#D4AF37] text-[#D4AF37] py-4 font-bold uppercase hover:bg-[#D4AF37]/10">Check Now</button>
-        <div id="eligibility-log" class="mt-8 space-y-4">
-         <!-- Persistent records from SDK -->
+        <div>
+         <label class="block text-sm font-medium mb-1">Your GPA/Academic Grade</label> <select id="quick-gpa" class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none"> <option value="">Select your grade</option> <option value="first">First Class (3.7+)</option> <option value="upper">Upper Second (3.3+)</option> <option value="lower">Lower Second (2.7+)</option> <option value="pass">Pass (2.0+)</option> </select>
+        </div>
+        <div>
+         <label class="block text-sm font-medium mb-1">English Test Status</label> <select id="quick-english" class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none"> <option value="">Select status</option> <option value="completed">Already Done (IELTS 6.5+)</option> <option value="planned">Planning Soon</option> <option value="none">Not Taken Yet</option> </select>
+        </div>
+        <div>
+         <label class="block text-sm font-medium mb-1">Work Experience</label> <select id="quick-work" class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none"> <option value="">Select experience</option> <option value="2plus">2+ Years</option> <option value="1year">1 Year</option> <option value="fresh">Fresh Graduate</option> </select>
+        </div><button onclick="calculateQuickEligibility()" class="w-full py-3 bg-emerald-600 text-white rounded-lg font-bold hover:bg-emerald-700 transition-all">Check Now</button>
+        <div id="quick-result" class="mt-4 p-4 rounded-lg hidden">
+         <p class="text-sm font-bold mb-2" id="quick-status"></p>
+         <p class="text-xs text-slate-600" id="quick-message"></p>
         </div>
        </div>
-      </div><!-- Deadline Tracker -->
-      <div class="premium-card p-8">
+      </div><!-- Deadline Tracker (Data SDK Powered) -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
        <div class="flex items-center gap-3 mb-6">
-        <i data-lucide="calendar" class="text-[#D4AF37]"></i>
-        <h3 class="text-xl font-bold uppercase tracking-widest">Scholarship Deadline Tracker 2026</h3>
+        <i data-lucide="calendar-check" class="text-sky-600 w-6 h-6"></i>
+        <h3 class="text-2xl font-bold">Deadline Tracker</h3>
        </div>
-       <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm">
-         <thead class="border-b border-white/10 uppercase text-xs text-white/50">
-          <tr>
-           <th class="py-4 px-2">Scholarship</th>
-           <th class="py-4 px-2">Deadline</th>
-           <th class="py-4 px-2">Action</th>
-          </tr>
-         </thead>
-         <tbody id="deadline-list">
-          <!-- Dynamic rows -->
-         </tbody>
-        </table>
+       <form id="deadline-form" onsubmit="handleDeadlineSubmit(event)" class="space-y-3 mb-6">
+        <input type="text" id="track-uni" placeholder="University Name" required class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none text-sm"> <input type="text" id="track-course" placeholder="Course Name" required class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none text-sm"> <input type="date" id="track-date" required class="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 outline-none text-sm"> <button type="submit" id="save-deadline-btn" class="w-full py-3 bg-emerald-600 text-white rounded-lg font-bold hover:bg-emerald-700 transition-all flex items-center justify-center gap-2"> <i data-lucide="plus" class="w-4 h-4"></i> Save to Sheet </button>
+       </form>
+       <div id="deadline-list-container" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar">
+        <!-- Items populated from Data SDK -->
+        <p class="text-slate-400 text-center italic py-4 text-sm">No deadlines yet.</p>
        </div>
       </div>
      </div>
-    </section><!-- About / Contact -->
-    <section id="about-section" class="hidden py-20 px-6 max-w-4xl mx-auto">
-     <h2 class="font-serif text-3xl mb-12 text-center gold-gradient uppercase tracking-widest">About the Portal</h2>
-     <div class="prose prose-invert max-w-none text-white/70 space-y-6">
-      <p>Transformers to UK is a specialized scholarship intelligence platform designed for the 2026 intake. Our mission is to bridge the gap between ambitious international students and the prestigious institutions of the United Kingdom.</p>
-      <p>We provide exclusive insights into fully funded programs including Chevening, Commonwealth, and University-specific excellence awards.</p>
-      <div class="premium-card p-8 mt-12">
-       <h3 class="text-xl font-bold text-[#D4AF37] uppercase tracking-widest mb-6">Official University Contacts</h3>
-       <ul class="space-y-4 text-sm">
-        <li class="flex justify-between border-b border-white/5 pb-2"><span>Oxford Scholarships</span> <span class="text-[#D4AF37]">scholarships@admin.ox.ac.uk</span></li>
-        <li class="flex justify-between border-b border-white/5 pb-2"><span>Cambridge Trust</span> <span class="text-[#D4AF37]">cambridge.trust@admin.cam.ac.uk</span></li>
-        <li class="flex justify-between border-b border-white/5 pb-2"><span>Imperial Funding</span> <span class="text-[#D4AF37]">student.funding@imperial.ac.uk</span></li>
-       </ul>
+    </section><!-- ELIGIBILITY VIEW -->
+    <section id="view-eligibility" class="view hidden py-20 px-6 max-w-3xl mx-auto">
+     <div class="bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
+      <h2 class="text-3xl font-bold mb-2">Check Your Eligibility</h2>
+      <p class="text-slate-500 mb-8">Quickly find out if you qualify for 2026 Fully Funded Scholarships.</p>
+      <div id="eligibility-form-container" class="space-y-6">
+       <div>
+        <label class="block font-semibold mb-2">Academic Background</label> <select id="elig-academic" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none"> <option value="first">First Class (GPA 3.7+)</option> <option value="upper">2:1 Upper Second (GPA 3.3+)</option> <option value="lower">2:2 Lower Second (GPA 2.7+)</option> </select>
+       </div>
+       <div>
+        <label class="block font-semibold mb-2">English Proficiency</label> <select id="elig-english" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none"> <option value="taken">IELTS 6.5+ / TOEFL 90+ / Duolingo 120+</option> <option value="not-taken">Not taken yet / Medium of Instruction</option> </select>
+       </div>
+       <div>
+        <label class="block font-semibold mb-2">Work Experience</label> <select id="elig-work" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none"> <option value="yes">2+ Years (Required for Chevening)</option> <option value="no">Fresh Graduate</option> </select>
+       </div><button onclick="checkEligibility()" class="w-full py-4 bg-sky-800 text-white rounded-xl font-bold text-lg hover:bg-sky-700 transition-all shadow-lg">Check Now</button>
+      </div>
+      <div id="eligibility-result" class="hidden mt-8 p-8 rounded-2xl text-center">
+       <div id="elig-icon" class="mb-4 flex justify-center"></div>
+       <h3 id="elig-title" class="text-2xl font-bold mb-2"></h3>
+       <p id="elig-desc" class="text-slate-600 mb-6"></p><button onclick="resetEligibility()" class="text-sky-600 font-semibold hover:underline">Start Over</button>
       </div>
      </div>
-    </section><!-- Blog Detail Modal -->
-    <div id="blog-modal" class="hidden fixed inset-0 z-[60] bg-[#0a0a0a] overflow-auto p-6">
-     <div class="max-w-3xl mx-auto pt-10 pb-20">
-      <button onclick="closeBlog()" class="mb-10 text-[#D4AF37] flex items-center gap-2 uppercase tracking-widest text-xs font-bold"> <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Portal </button>
-      <div id="blog-content"></div>
+    </section><!-- BLOG VIEW -->
+    <section id="view-blog" class="view hidden py-20 px-6 max-w-7xl mx-auto">
+     <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+      <div>
+       <h2 class="text-4xl font-bold mb-2">Scholarship Insights</h2>
+       <p class="text-slate-500">Expert guides on UK education and funding.</p>
+      </div>
+      <div class="relative w-full md:w-64">
+       <i data-lucide="search" class="absolute left-3 top-3.5 w-4 h-4 text-slate-400"></i> <input type="text" placeholder="Search blogs..." class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-lg outline-none focus:border-sky-500">
+      </div>
      </div>
-    </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
+      <!-- Dynamic Grid -->
+     </div>
+    </section><!-- ABOUT VIEW -->
+    <section id="view-about" class="view hidden py-20 px-6 max-w-4xl mx-auto">
+     <div class="prose prose-slate max-w-none">
+      <h2 class="text-4xl font-bold mb-6">About Transformers To UK</h2>
+      <p class="text-lg text-slate-600 mb-8 leading-relaxed">Transformers To UK is a dedicated platform designed to bridge the gap between talented international students and world-class British education. We specialize in aggregating information about fully funded scholarships, government grants, and university-specific financial aid.</p>
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+       <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+        <h3 class="font-bold text-xl mb-3 flex items-center gap-2 text-sky-800"><i data-lucide="phone"></i> Official Contacts</h3>
+        <p class="text-sm text-slate-500 mb-1">General Inquiries:</p>
+        <p id="about-email" class="font-medium mb-4">info@transformersto-uk.com</p>
+        <p class="text-sm text-slate-500 mb-1">Admissions Support:</p>
+        <p class="font-medium">admissions@transformersto-uk.com</p>
+       </div>
+       <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+        <h3 class="font-bold text-xl mb-3 flex items-center gap-2 text-sky-800"><i data-lucide="map-pin"></i> Head Office</h3>
+        <p class="text-slate-600">Level 4, Academic House,<br>
+          Euston Road, London,<br>
+          NW1 2DB, United Kingdom</p>
+       </div>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">Our Vision</h3>
+      <p class="text-slate-600 mb-8">To transform the academic landscape by ensuring that financial barriers never stand in the way of global excellence.</p>
+     </div>
+    </section><!-- LEGAL VIEW -->
+    <section id="view-legal" class="view hidden py-20 px-6 max-w-4xl mx-auto">
+     <div id="legal-content" class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
+      <!-- Dynamic Legal Content -->
+     </div>
+    </section>
    </main><!-- Footer -->
-   <footer class="bg-[#050505] border-t border-[#D4AF37]/20 py-16 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="flex items-center justify-center gap-2 mb-8">
-      <i data-lucide="graduation-cap" class="text-[#D4AF37] w-6 h-6"></i> <span class="font-serif text-lg tracking-wider uppercase gold-gradient">Transformers to UK</span>
+   <footer class="bg-slate-900 text-slate-300 py-16 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+     <div>
+      <div class="flex items-center gap-2 text-white mb-6">
+       <i data-lucide="graduation-cap"></i> <span id="footer-brand" class="font-bold text-xl">Transformers To UK</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-6">Empowering global students to achieve their dreams of studying in the United Kingdom through funding and guidance.</p>
      </div>
-     <div class="flex flex-wrap justify-center gap-6 text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 mb-12">
-      <button onclick="showSection('home')" class="hover:text-[#D4AF37]">Home</button> <button onclick="showSection('scholarships')" class="hover:text-[#D4AF37]">Scholarships</button> <button onclick="showSection('tools')" class="hover:text-[#D4AF37]">Tools</button> <button onclick="showSection('about')" class="hover:text-[#D4AF37]">About</button> <button onclick="showLegal('disclaimer')" class="hover:text-[#D4AF37]">Disclaimer</button> <button onclick="showLegal('terms')" class="hover:text-[#D4AF37]">Terms</button> <button onclick="showLegal('privacy')" class="hover:text-[#D4AF37]">Privacy</button>
+     <div>
+      <h4 class="text-white font-bold mb-6">Quick Links</h4>
+      <ul class="space-y-4 text-sm">
+       <li><button onclick="navigate('home')" class="hover:text-white">Home</button></li>
+       <li><button onclick="navigate('scholarships')" class="hover:text-white">Scholarships</button></li>
+       <li><button onclick="navigate('tools')" class="hover:text-white">Tools/Calculators</button></li>
+       <li><button onclick="navigate('about')" class="hover:text-white">About Us</button></li>
+      </ul>
      </div>
-     <p id="display-disclaimer" class="text-[10px] text-white/30 max-w-xl mx-auto mb-4">All information is collected from official university and scholarship websites. Verify before applying.</p>
-     <p class="text-[10px] text-[#D4AF37]/50">© 2026 Transformers to UK Portal. All Rights Reserved.</p>
+     <div>
+      <h4 class="text-white font-bold mb-6">University Grid</h4>
+      <ul class="space-y-4 text-sm">
+       <li><button class="hover:text-white">University of Oxford</button></li>
+       <li><button class="hover:text-white">Imperial College London</button></li>
+       <li><button class="hover:text-white">UCL (University College London)</button></li>
+       <li><button class="hover:text-white">University of Edinburgh</button></li>
+      </ul>
+     </div>
+     <div>
+      <h4 class="text-white font-bold mb-6">Legal</h4>
+      <ul class="space-y-4 text-sm">
+       <li><button onclick="showLegal('disclaimer')" class="hover:text-white">Disclaimer</button></li>
+       <li><button onclick="showLegal('terms')" class="hover:text-white">Terms of Use</button></li>
+       <li><button onclick="showLegal('privacy')" class="hover:text-white">Privacy Policy</button></li>
+      </ul>
+     </div>
     </div>
-   </footer>
-  </div><!-- Data Loading Spinner -->
-  <div id="loading" class="loading-overlay hidden">
-   <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#D4AF37]"></div>
+    <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+     <p>© 2026 Transformers To UK. All rights reserved. Designed for academic excellence.</p>
+    </div>
+   </footer><!-- Toast Notification Area -->
+   <div id="toast-container" class="fixed bottom-6 right-6 z-[100] space-y-2"></div>
   </div>
   <script>
-        const defaultConfig = {
-            hero_headline: "Discover Fully Funded UK Scholarships 2026",
-            hero_subheadline: "Step-by-step guides, official contacts, and deadlines.",
-            cta_explore: "Explore Scholarships →",
-            cta_check: "Check Eligibility →",
-            disclaimer_text: "All information is collected from official university and scholarship websites. Verify before applying.",
-            background_color: "#0a0a0a",
-            surface_color: "#1a1a1a",
-            text_color: "#ffffff",
-            primary_action: "#D4AF37",
-            secondary_action: "#996515"
-        };
+        // --- Data & Configuration ---
+        const universities = [
+            { name: "Oxford", color: "bg-blue-900" },
+            { name: "Cambridge", color: "bg-cyan-900" },
+            { name: "UCL", color: "bg-indigo-900" },
+            { name: "LSE", color: "bg-red-900" },
+            { name: "Imperial", color: "bg-sky-900" },
+            { name: "Edinburgh", color: "bg-slate-900" },
+            { name: "Glasgow", color: "bg-yellow-900" },
+            { name: "Bradford", color: "bg-green-900" },
+            { name: "Hull", color: "bg-orange-900" },
+            { name: "Bangor", color: "bg-emerald-900" },
+            { name: "QUB", color: "bg-rose-900" },
+            { name: "Coventry", color: "bg-blue-700" },
+            { name: "DMU", color: "bg-purple-900" },
+            { name: "Roehampton", color: "bg-teal-900" },
+            { name: "Sheffield Hallam", color: "bg-gray-900" }
+        ];
 
-        let config = { ...defaultConfig };
-        let currentRecordCount = 0;
+        const scholarshipData = [
+            { title: "Chevening Scholarship 2026-27", sponsor: "UK Government", coverage: "Fully Funded", deadline: "Nov 2026", desc: "For future leaders with 2+ years of work experience. Covers tuition, living allowance, and flights." },
+            { title: "Commonwealth Master's 2026", sponsor: "CSC UK", coverage: "Full Tuition + Living", deadline: "Oct 2026", desc: "Specifically for students from eligible Commonwealth countries pursuing Master's degrees." },
+            { title: "Gates Cambridge 2026", sponsor: "Bill Gates Foundation", coverage: "Fully Funded", deadline: "Feb 2027", desc: "One of the most prestigious awards at the University of Cambridge for exceptional leaders." },
+            { title: "Rhodes Scholarship 2026", sponsor: "Oxford University", coverage: "Full Grant", deadline: "Sep 2026", desc: "The oldest international scholarship program. Covers all fees plus living expenses at Oxford." },
+            { title: "GREAT Scholarships 2026", sponsor: "British Council", coverage: "£10,000 - £20,000", deadline: "Jun 2026", desc: "Available for students from GREAT priority countries. Partial and full scholarships available." },
+            { title: "Leverhulme Postgraduate", sponsor: "Leverhulme Trust", coverage: "Full Fees + Stipend", deadline: "Mar 2027", desc: "For postgraduate research across all disciplines at UK universities. Merit-based awards." },
+            { title: "Clarendon Scholarship 2026", sponsor: "University of Oxford", coverage: "Full Fees + Living", deadline: "Jan 2027", desc: "Oxford's flagship graduate scholarship. Supports outstanding students from around the world." },
+            { title: "Trinity College Cambridge Award", sponsor: "Trinity College Cambridge", coverage: "Partial Tuition", deadline: "Dec 2026", desc: "College-specific scholarships for exceptional undergraduate and postgraduate candidates." },
+            { title: "Imperial College President's PhD", sponsor: "Imperial College London", coverage: "Full + Stipend", deadline: "Apr 2027", desc: "Prestigious PhD funding for international students in STEM fields. Limited spots available." },
+            { title: "LSE Masters Scholarship", sponsor: "London School of Economics", coverage: "£20,000+", deadline: "May 2026", desc: "Merit-based awards for top-performing applicants to LSE Master's programmes." },
+            { title: "Edinburgh Global Scholarship", sponsor: "University of Edinburgh", coverage: "Partial Tuition", deadline: "Mar 2027", desc: "Recognises academic excellence for international postgraduate students." },
+            { title: "UCL Overseas Research Scheme", sponsor: "University College London", coverage: "Full Fees", deadline: "Feb 2027", desc: "Covers tuition fees for research degree students from outside the EU/UK." },
+            { title: "Durham Doctoral Fellowship", sponsor: "Durham University", coverage: "Full + Bursary", deadline: "Jan 2027", desc: "Fully funded 3-4 year PhD programmes with additional living stipend." },
+            { title: "Bristol University Award", sponsor: "University of Bristol", coverage: "£15,000 - £25,000", deadline: "Apr 2026", desc: "Competitive scholarships for Master's students from developing countries." },
+            { title: "Warwick Postgraduate Award", sponsor: "University of Warwick", coverage: "Partial Fees", deadline: "May 2027", desc: "Merit scholarships for exceptional postgraduate applications across all departments." },
+            { title: "Manchester Global Scholarship", sponsor: "University of Manchester", coverage: "£10,000+", deadline: "Jun 2026", desc: "Supporting talented international students in pursuing postgraduate studies." },
+            { title: "King's College London Bursary", sponsor: "King's College London", coverage: "Full Tuition", deadline: "Mar 2027", desc: "Financial support for international students demonstrating academic excellence." },
+            { title: "SOAS Scholarship Scheme", sponsor: "SOAS, University of London", coverage: "Partial Support", deadline: "Apr 2026", desc: "Scholarships for Asian and African studies postgraduate students worldwide." },
+            { title: "Aberystwyth International Award", sponsor: "Aberystwyth University", coverage: "£5,000 - £15,000", deadline: "Jul 2026", desc: "Affordable scholarships for international Master's students at Welsh university." },
+            { title: "Queen Mary University Fund", sponsor: "Queen Mary University of London", coverage: "Tuition Waiver", deadline: "May 2027", desc: "Full tuition fee scholarships for top international postgraduate applicants." },
+            { title: "Sussex Excellence Scholarship", sponsor: "University of Sussex", coverage: "£10,000 - £20,000", deadline: "Jun 2026", desc: "Merit-based awards for postgraduate students across all schools." },
+            { title: "Nottingham International Award", sponsor: "University of Nottingham", coverage: "£5,000+", deadline: "Aug 2026", desc: "Partial tuition scholarships for international Master's students." },
+            { title: "Sheffield Hallam Future Leaders", sponsor: "Sheffield Hallam University", coverage: "Tuition + Living", deadline: "Sep 2026", desc: "Full support for high-achieving international postgraduate students." },
+            { title: "British Library Internship Award", sponsor: "British Library", coverage: "Stipend + Experience", deadline: "Jul 2026", desc: "Funded internship for international researchers and scholars in the UK." },
+            { title: "Commonwealth Doctoral 2026", sponsor: "Association of Commonwealth Universities", coverage: "Full Fees + Allowance", deadline: "Oct 2026", desc: "PhD scholarships for Commonwealth citizens pursuing research at UK universities." }
+        ];
 
-        // --- Data Handling ---
+        const blogTitles = [
+            "Chevening 2026-27: Step-by-Step Application Guide",
+            "Commonwealth Scholarships 2026: Eligibility & Deadlines",
+            "Writing a Winning Personal Statement for UK Universities",
+            "UK Student Visa 2026: New Rules & Requirements",
+            "Graduate Route Visa Extended: What You Need to Know",
+            "IELTS vs TOEFL vs Duolingo: Which Test Should You Take?",
+            "Top 10 Most Affordable UK Cities for International Students",
+            "Oxford vs Cambridge: Academic Comparison & Admission Rates",
+            "Russell Group Universities: Rankings & Specialisations 2026",
+            "STEM Scholarships for Women in the UK: Complete List",
+            "Medical School Applications: UKCAT & Interview Prep 2026",
+            "Engineering in the UK: Top Universities & Funding Options",
+            "PhD in the UK: Funding, Supervision & Application Timeline",
+            "Living Costs in London 2026: Realistic Budget Breakdown",
+            "Student Accommodation Guide: Halls vs Private Rentals",
+            "Opening a UK Bank Account as an International Student",
+            "Working Part-Time in the UK: Visa Restrictions & Best Jobs",
+            "NHS Health Coverage for International Students Explained",
+            "How to Write a Strong Research Proposal for Postgraduate Apps",
+            "Getting Recommendation Letters: Tips from Professors",
+            "UK University Rankings 2026: What Changed?",
+            "Hidden Gems: High-Quality Universities Outside London",
+            "Master's in Business: MBA vs MSc Finance in the UK",
+            "Master's Scholarships: Gates Cambridge, Clarendon & More",
+            "Preparing for Your Student Visa Interview in 2026"
+        ];
+
+        // --- State Management ---
+        let currentConfig = {};
+        let currentDeadlines = [];
+
+        // --- Core Functions ---
+        function navigate(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.textContent.toLowerCase() === viewId) {
+                    link.classList.add('text-sky-600', 'border-b-2', 'border-sky-600');
+                } else {
+                    link.classList.remove('text-sky-600', 'border-b-2', 'border-sky-600');
+                }
+            });
+        }
+
+        function initUI() {
+            // Render Universities
+            const uniGrid = document.getElementById('university-grid');
+            uniGrid.innerHTML = universities.map(uni => `
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all text-center group">
+                    <div class="w-12 h-12 ${uni.color} rounded-lg mx-auto mb-4 flex items-center justify-center text-white group-hover:scale-110 transition-all">
+                        <i data-lucide="building-2"></i>
+                    </div>
+                    <h4 class="font-bold text-sm text-slate-800">${uni.name}</h4>
+                </div>
+            `).join('');
+
+            // Render Scholarships
+            const scholarList = document.getElementById('scholarship-list');
+            scholarList.innerHTML = scholarshipData.map(s => `
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 hover:border-sky-200 shadow-sm transition-all flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-3 py-1 bg-sky-50 text-sky-700 text-xs font-bold rounded-full uppercase tracking-wider">${s.coverage}</span>
+                        <span class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> Deadline: ${s.deadline}</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">${s.title}</h3>
+                    <p class="text-slate-500 text-sm mb-6 flex-grow">${s.desc}</p>
+                    <div class="flex items-center justify-between mt-auto pt-6 border-t border-slate-50 gap-3">
+                        <span class="text-xs font-semibold text-slate-400">${s.sponsor}</span>
+                        <button onclick="showToast('Redirecting to official portal...')" class="flex-1 px-4 py-2 bg-sky-600 text-white font-bold text-sm rounded-lg hover:bg-sky-700 transition-all">Apply Now</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Blogs
+            const blogGrid = document.getElementById('blog-grid');
+            blogGrid.innerHTML = blogTitles.map((title, i) => `
+                <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
+                    <span class="text-xs font-bold text-sky-600 uppercase mb-3">Article ${i + 1}</span>
+                    <h3 class="font-bold text-lg mb-4 line-clamp-3">${title}</h3>
+                    <button onclick="showToast('Opening article...')" class="mt-auto px-4 py-2 bg-sky-50 text-sky-700 font-semibold text-sm rounded-lg hover:bg-sky-100 transition-all">Read More</button>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function calculateTuition() {
+            const level = document.getElementById('calc-level').value;
+            const field = document.getElementById('calc-field').value;
+            let base = 15000;
+
+            if (level === 'pg') base += 5000;
+            if (level === 'phd') base += 3000;
+            if (field === 'stem') base += 7000;
+            if (field === 'medicine') base += 15000;
+            if (field === 'business') base += 9000;
+
+            const resultDiv = document.getElementById('calc-result');
+            const amountEl = document.getElementById('calc-amount');
+            
+            resultDiv.classList.remove('hidden');
+            amountEl.textContent = `£${base.toLocaleString()}.00`;
+            
+            showToast("Calculation complete!");
+        }
+
+        function calculateQuickEligibility() {
+            const gpa = document.getElementById('quick-gpa').value;
+            const english = document.getElementById('quick-english').value;
+            const work = document.getElementById('quick-work').value;
+
+            if (!gpa || !english || !work) {
+                showToast("Please fill all fields!");
+                return;
+            }
+
+            const resultDiv = document.getElementById('quick-result');
+            const statusEl = document.getElementById('quick-status');
+            const messageEl = document.getElementById('quick-message');
+
+            resultDiv.classList.remove('hidden');
+
+            let score = 0;
+            if (gpa === 'first') score += 3;
+            if (gpa === 'upper') score += 2;
+            if (gpa === 'lower') score += 1;
+
+            if (english === 'completed') score += 3;
+            if (english === 'planned') score += 1;
+
+            if (work === '2plus') score += 3;
+            if (work === '1year') score += 2;
+
+            if (score >= 7) {
+                resultDiv.className = "mt-4 p-4 rounded-lg hidden bg-emerald-50 border border-emerald-200";
+                statusEl.className = "text-sm font-bold mb-2 text-emerald-700";
+                statusEl.textContent = "✓ Strong Candidate - Tier 1";
+                messageEl.textContent = "You qualify for Chevening, Commonwealth, and top university scholarships. Start applications now!";
+            } else if (score >= 5) {
+                resultDiv.className = "mt-4 p-4 rounded-lg hidden bg-sky-50 border border-sky-200";
+                statusEl.className = "text-sm font-bold mb-2 text-sky-700";
+                statusEl.textContent = "• Competitive Candidate - Tier 2";
+                messageEl.textContent = "Good prospects for university-specific and partial scholarships. Complete your English test soon.";
+            } else {
+                resultDiv.className = "mt-4 p-4 rounded-lg hidden bg-amber-50 border border-amber-200";
+                statusEl.className = "text-sm font-bold mb-2 text-amber-700";
+                statusEl.textContent = "→ Potential Candidate - Tier 3";
+                messageEl.textContent = "You can still apply! Focus on regional universities and building work experience.";
+            }
+
+            resultDiv.classList.remove('hidden');
+        }
+
+        function checkEligibility() {
+            const academic = document.getElementById('elig-academic').value;
+            const english = document.getElementById('elig-english').value;
+            const work = document.getElementById('elig-work').value;
+
+            const form = document.getElementById('eligibility-form-container');
+            const result = document.getElementById('eligibility-result');
+            const icon = document.getElementById('elig-icon');
+            const title = document.getElementById('elig-title');
+            const desc = document.getElementById('elig-desc');
+
+            form.classList.add('hidden');
+            result.classList.remove('hidden');
+
+            if (academic === 'first' && english === 'taken') {
+                result.className = "mt-8 p-8 rounded-2xl text-center bg-emerald-50 border border-emerald-100";
+                icon.innerHTML = '<div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center"><i data-lucide="check-circle-2" class="w-8 h-8"></i></div>';
+                title.textContent = "High Eligibility Found!";
+                title.className = "text-2xl font-bold mb-2 text-emerald-900";
+                desc.textContent = "Based on your profile, you are a strong candidate for Chevening, Commonwealth, and University merit scholarships. We recommend applying to Russell Group institutions.";
+            } else if (academic === 'upper') {
+                result.className = "mt-8 p-8 rounded-2xl text-center bg-sky-50 border border-sky-100";
+                icon.innerHTML = '<div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center"><i data-lucide="info" class="w-8 h-8"></i></div>';
+                title.textContent = "Good Prospects";
+                title.className = "text-2xl font-bold mb-2 text-sky-900";
+                desc.textContent = "You qualify for many competitive university scholarships. Consider taking your English proficiency test soon to finalize your scholarship portfolio.";
+            } else {
+                result.className = "mt-8 p-8 rounded-2xl text-center bg-amber-50 border border-amber-100";
+                icon.innerHTML = '<div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center"><i data-lucide="help-circle" class="w-8 h-8"></i></div>';
+                title.textContent = "Standard Eligibility";
+                title.className = "text-2xl font-bold mb-2 text-amber-900";
+                desc.textContent = "You meet the basic requirements for UK admission. While fully funded government grants may be more competitive, several regional universities offer automatic bursaries.";
+            }
+            lucide.createIcons();
+        }
+
+        function resetEligibility() {
+            document.getElementById('eligibility-form-container').classList.remove('hidden');
+            document.getElementById('eligibility-result').classList.add('hidden');
+        }
+
+        function showLegal(type) {
+            const container = document.getElementById('legal-content');
+            let content = "";
+            
+            if (type === 'disclaimer') {
+                content = `
+                    <h2 class="text-3xl font-bold mb-6">Disclaimer</h2>
+                    <p class="mb-4">Transformers To UK is an independent educational consultancy platform and is not affiliated with the UK Government, the British Council, or any specific university unless explicitly stated.</p>
+                    <p class="mb-4">While we strive for accuracy, scholarship details, deadlines, and requirements change frequently. Users are encouraged to verify all information on official university websites before applying.</p>
+                    <p>We do not guarantee scholarship awards or visa approvals.</p>
+                `;
+            } else if (type === 'privacy') {
+                content = `
+                    <h2 class="text-3xl font-bold mb-6">Privacy Policy</h2>
+                    <p class="mb-4">We value your privacy. Your data stored through the "Application Tracker" is saved within your Canva environment and is not shared with third parties.</p>
+                    <p class="mb-4">We do not collect personal identifiers unless you contact us directly via email.</p>
+                `;
+            } else {
+                content = `
+                    <h2 class="text-3xl font-bold mb-6">Terms of Use</h2>
+                    <p class="mb-4">By using this site, you agree that the content provided is for informational purposes only. Reproduction of any site assets without permission is strictly prohibited.</p>
+                `;
+            }
+            
+            container.innerHTML = content;
+            navigate('legal');
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = "bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-bounce";
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i> ${message}`;
+            document.getElementById('toast-container').appendChild(toast);
+            lucide.createIcons();
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // --- Data SDK Implementation ---
         const dataHandler = {
             onDataChanged(data) {
-                currentRecordCount = data.length;
-                renderEligibilityLog(data);
+                currentDeadlines = data;
+                renderDeadlines();
             }
         };
 
-        async function initApp() {
-            // Init Elements SDK
-            if (window.elementSdk) {
-                window.elementSdk.init({
-                    defaultConfig,
-                    onConfigChange: async (newConfig) => {
-                        config = { ...config, ...newConfig };
-                        updateUIFromConfig();
-                    },
-                    mapToCapabilities: (c) => ({
-                        recolorables: [
-                            { get: () => c.background_color, set: (v) => window.elementSdk.setConfig({ background_color: v }) },
-                            { get: () => c.surface_color, set: (v) => window.elementSdk.setConfig({ surface_color: v }) },
-                            { get: () => c.text_color, set: (v) => window.elementSdk.setConfig({ text_color: v }) },
-                            { get: () => c.primary_action, set: (v) => window.elementSdk.setConfig({ primary_action: v }) },
-                            { get: () => c.secondary_action, set: (v) => window.elementSdk.setConfig({ secondary_action: v }) }
-                        ],
-                        fontEditable: undefined,
-                        fontSizeable: undefined
-                    }),
-                    mapToEditPanelValues: (c) => new Map([
-                        ["hero_headline", c.hero_headline],
-                        ["hero_subheadline", c.hero_subheadline],
-                        ["cta_explore", c.cta_explore],
-                        ["cta_check", c.cta_check],
-                        ["disclaimer_text", c.disclaimer_text]
-                    ])
-                });
-            }
-
-            // Init Data SDK
-            const initResult = await window.dataSdk.init(dataHandler);
-            if (!initResult.isOk) console.error("Data SDK failed to initialize");
-
-            renderScholarships();
-            renderDeadlines();
-            lucide.createIcons();
-        }
-
-        function updateUIFromConfig() {
-            document.getElementById('display-headline').textContent = config.hero_headline || defaultConfig.hero_headline;
-            document.getElementById('display-subheadline').textContent = config.hero_subheadline || defaultConfig.hero_subheadline;
-            document.getElementById('display-cta-explore').textContent = config.cta_explore || defaultConfig.cta_explore;
-            document.getElementById('display-cta-check').textContent = config.cta_check || defaultConfig.cta_check;
-            document.getElementById('display-disclaimer').textContent = config.disclaimer_text || defaultConfig.disclaimer_text;
-            
-            // Apply colors
-            const root = document.documentElement;
-            root.style.setProperty('--black', config.background_color);
-            root.style.setProperty('--white', config.text_color);
-            root.style.setProperty('--gold', config.primary_action);
-            root.style.setProperty('--dark-gold', config.secondary_action);
-        }
-
-        // --- Navigation ---
-        function showSection(id) {
-            document.querySelectorAll('.section, section').forEach(s => s.classList.add('hidden'));
-            const section = document.getElementById(`${id}-section`);
-            if (section) section.classList.remove('hidden');
-            window.scrollTo(0, 0);
-            lucide.createIcons();
-        }
-
-        // --- Scholarship Logic ---
-        const scholarships = Array.from({ length: 25 }, (_, i) => ({
-            id: i + 1,
-            title: `Scholarship ${i + 1}: Global Excellence Program`,
-            overview: "A fully funded award for high-achieving international scholars entering 2026 intake.",
-            eligibility: "Minimum 3.5 GPA, International residency, Strong leadership potential.",
-            deadline: "March 15, 2026",
-            link: "https://www.uk.gov/scholarships",
-            university: i < 15 ? [
-                "Oxford", "Cambridge", "UCL", "LSE", "Imperial", "Edinburgh", "Glasgow", "Bradford", "Hull", "Bangor", "QUB", "Coventry", "DMU", "Roehampton", "Sheffield Hallam"
-            ][i] : "Partner University"
-        }));
-
-        function renderScholarships() {
-            const container = document.getElementById('blog-container');
-            container.innerHTML = scholarships.map(s => `
-                <div class="premium-card p-6 cursor-pointer group" onclick="openBlog(${s.id})">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold group-hover:text-[#D4AF37] uppercase tracking-wide">${s.title}</h3>
-                        <span class="text-[10px] bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-1">2026 OPEN</span>
-                    </div>
-                    <p class="text-xs text-white/50 mb-4">${s.university}</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-[10px] text-white/30 uppercase tracking-widest">Deadline: ${s.deadline}</span>
-                        <span class="text-[#D4AF37] text-xs font-bold uppercase tracking-widest group-hover:underline">Read Guide</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function openBlog(id) {
-            const s = scholarships.find(item => item.id === id);
-            const content = document.getElementById('blog-content');
-            content.innerHTML = `
-                <h1 class="font-serif text-3xl md:text-5xl mb-4 gold-gradient">${s.title}</h1>
-                <p class="text-white/40 mb-10 text-xs uppercase tracking-widest">Scholarship ID: UK-2026-${s.id} | ${s.university}</p>
-                
-                <div class="space-y-12 text-white/80 leading-relaxed">
-                    <section>
-                        <h2 class="text-[#D4AF37] uppercase font-bold mb-4 tracking-widest">I. Overview</h2>
-                        <p>${s.overview}</p>
-                    </section>
-                    
-                    <section>
-                        <h2 class="text-[#D4AF37] uppercase font-bold mb-4 tracking-widest">II. Eligibility Criteria</h2>
-                        <p>${s.eligibility}</p>
-                    </section>
-
-                    <section class="premium-card p-6">
-                        <h2 class="text-[#D4AF37] uppercase font-bold mb-4 tracking-widest">III. Step-by-Step Guide</h2>
-                        <ol class="list-decimal list-inside space-y-2 text-sm">
-                            <li>Obtain an unconditional offer from ${s.university}.</li>
-                            <li>Register on the official portal before the deadline.</li>
-                            <li>Upload transcripts and leadership statement.</li>
-                            <li>Interview with the faculty board.</li>
-                        </ol>
-                    </section>
-
-                    <section>
-                        <h2 class="text-[#D4AF37] uppercase font-bold mb-4 tracking-widest">IV. Official Contacts</h2>
-                        <p class="text-sm">Email: funding-enquiries@${s.university.toLowerCase().replace(' ', '')}.ac.uk</p>
-                        <a href="${s.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-6 bg-[#D4AF37] text-black px-6 py-3 font-bold text-xs uppercase">Apply on Official Site</a>
-                    </section>
-                </div>
-            `;
-            document.getElementById('blog-modal').classList.remove('hidden');
-        }
-
-        function closeBlog() {
-            document.getElementById('blog-modal').classList.add('hidden');
-        }
-
-        // --- Tool Logic ---
-        function calculateFinance() {
-            const tuition = parseFloat(document.getElementById('calc-tuition').value) || 0;
-            const living = parseFloat(document.getElementById('calc-living').value) || 0;
-            const grant = parseFloat(document.getElementById('calc-grant').value) || 0;
-            const years = parseFloat(document.getElementById('calc-years').value) || 1;
-            
-            const totalTuition = tuition * years;
-            const totalLiving = living * years;
-            const totalCost = totalTuition + totalLiving;
-            const totalGrant = grant * years;
-            const selfFunded = Math.max(0, totalCost - totalGrant);
-            const perYear = selfFunded / years;
-            
-            document.getElementById('calc-result').classList.remove('hidden');
-            document.getElementById('calc-total-tuition').textContent = `£${totalTuition.toLocaleString('en-GB', { maximumFractionDigits: 0 })}`;
-            document.getElementById('calc-total-living').textContent = `£${totalLiving.toLocaleString('en-GB', { maximumFractionDigits: 0 })}`;
-            document.getElementById('calc-total-cost').textContent = `£${totalCost.toLocaleString('en-GB', { maximumFractionDigits: 0 })}`;
-            document.getElementById('calc-self-funded').textContent = `£${selfFunded.toLocaleString('en-GB', { maximumFractionDigits: 0 })}`;
-            document.getElementById('calc-per-year').textContent = `(£${perYear.toLocaleString('en-GB', { maximumFractionDigits: 0 })} per year)`;
-        }
-
-        function resetCalculator() {
-            document.getElementById('calc-tuition').value = '';
-            document.getElementById('calc-living').value = '';
-            document.getElementById('calc-grant').value = '';
-            document.getElementById('calc-years').value = '1';
-            document.getElementById('calc-result').classList.add('hidden');
-        }
-
-        async function checkEligibility() {
-            const name = document.getElementById('user-name').value;
-            const degree = document.getElementById('user-degree').value;
-            const gpa = parseFloat(document.getElementById('user-gpa').value);
-
-            if (!name || !degree || isNaN(gpa)) {
-                return; // Silently fail for empty fields as per instructions to avoid dialogs
-            }
-
-            if (currentRecordCount >= 999) {
-                // Should show UI warning
-                return;
-            }
-
-            const status = gpa >= 3.0 ? "Eligible (High Chance)" : "Conditional Eligibility";
-            
-            document.getElementById('loading').classList.remove('hidden');
-            const result = await window.dataSdk.create({
-                user_name: name,
-                country: "International",
-                degree: degree,
-                gpa: gpa,
-                eligibility_status: status,
-                timestamp: new Date().toISOString()
-            });
-            document.getElementById('loading').classList.add('hidden');
-            
-            if (result.isOk) {
-                document.getElementById('user-name').value = '';
-                document.getElementById('user-gpa').value = '';
-            }
-        }
-
-        function renderEligibilityLog(data) {
-            const log = document.getElementById('eligibility-log');
-            if (data.length === 0) {
-                log.innerHTML = `<p class="text-[10px] text-white/30 text-center uppercase tracking-widest">No previous checks recorded.</p>`;
-                return;
-            }
-            log.innerHTML = `<h4 class="text-xs text-[#D4AF37] uppercase tracking-widest mb-4">Recent Checks</h4>` + 
-                data.slice(-3).reverse().map(d => `
-                <div class="text-[10px] border-l-2 border-[#D4AF37] pl-4 py-1 mb-2">
-                    <span class="font-bold">${d.user_name}</span> - ${d.eligibility_status}
-                    <br><span class="text-white/30">${new Date(d.timestamp).toLocaleDateString()}</span>
-                </div>
-            `).join('');
+        async function initData() {
+            const result = await window.dataSdk.init(dataHandler);
+            if (!result.isOk) console.error("Data SDK failed:", result.error);
         }
 
         function renderDeadlines() {
-            const list = document.getElementById('deadline-list');
-            list.innerHTML = scholarships.slice(0, 10).map(s => `
-                <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                    <td class="py-4 px-2 font-bold">${s.title.split(':')[0]}</td>
-                    <td class="py-4 px-2 text-[#D4AF37]">${s.deadline}</td>
-                    <td class="py-4 px-2">
-                        <button onclick="openBlog(${s.id})" class="text-[10px] border border-[#D4AF37] px-3 py-1 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all">DETAILS</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
+            const container = document.getElementById('deadline-list-container');
+            if (!currentDeadlines || currentDeadlines.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center italic py-4">No deadlines saved yet.</p>`;
+                return;
+            }
 
-        // --- Legal View ---
-        function showLegal(type) {
-            const titles = { disclaimer: "Legal Disclaimer", terms: "Terms & Conditions", privacy: "Privacy Policy" };
-            const texts = {
-                disclaimer: "All information provided on Transformers to UK is collected from official university and scholarship websites for informational purposes only. While we strive for accuracy, users MUST verify all deadlines and criteria directly on official portals before applying. We assume no liability for application outcomes.",
-                terms: "By using this portal, you accept that we provide scholarship intelligence and tools as-is. We do not guarantee admission or funding. No personal data is sold, and users are responsible for their own application submissions.",
-                privacy: "Transformers to UK values your privacy. We store eligibility check data locally within your session's secure storage for your reference. We do not share this data with third parties. Cookies are used solely for portal functionality and performance analytics."
-            };
-            
-            const content = document.getElementById('blog-content');
-            content.innerHTML = `
-                <h1 class="font-serif text-3xl gold-gradient mb-8 uppercase">${titles[type]}</h1>
-                <div class="text-white/70 leading-relaxed max-w-2xl">
-                    <p>${texts[type]}</p>
+            container.innerHTML = currentDeadlines.map(item => `
+                <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl flex justify-between items-center group">
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-800">${item.university_name}</h4>
+                        <p class="text-xs text-slate-500">${item.course_name} • <span class="text-sky-600 font-medium">${item.deadline_date}</span></p>
+                    </div>
+                    <button onclick="deleteDeadline('${item.__backendId}')" class="p-2 text-slate-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
                 </div>
-            `;
-            document.getElementById('blog-modal').classList.remove('hidden');
+            `).join('');
+            lucide.createIcons();
         }
 
-        function toggleMobileMenu() {
-            // Simplified for prototype
-            showSection('scholarships');
+        async function handleDeadlineSubmit(e) {
+            e.preventDefault();
+            if (currentDeadlines.length >= 999) {
+                showToast("Limit reached (999 items). Please delete some.");
+                return;
+            }
+
+            const btn = document.getElementById('save-deadline-btn');
+            btn.disabled = true;
+            btn.innerHTML = 'Saving...';
+
+            const record = {
+                university_name: document.getElementById('track-uni').value,
+                course_name: document.getElementById('track-course').value,
+                deadline_date: document.getElementById('track-date').value,
+                notes: ""
+            };
+
+            const result = await window.dataSdk.create(record);
+            if (result.isOk) {
+                document.getElementById('deadline-form').reset();
+                showToast("Deadline saved to Sheet!");
+            } else {
+                showToast("Error saving data.");
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i> Save to my Sheet';
+            lucide.createIcons();
         }
 
-        // Initialize on load
-        initApp();
+        async function deleteDeadline(id) {
+            const record = currentDeadlines.find(d => d.__backendId === id);
+            if (!record) return;
+            
+            const result = await window.dataSdk.delete(record);
+            if (result.isOk) {
+                showToast("Entry removed.");
+            }
+        }
+
+        // --- Element SDK Implementation ---
+        async function initElement() {
+            const defaultConfig = {
+                site_name: "Transformers To UK",
+                hero_title: "Discover Fully Funded UK Scholarships 2026",
+                hero_subtitle: "Navigate your path to British higher education with expert guides, deadline trackers, and eligibility tools.",
+                contact_email: "info@transformersto-uk.com",
+                primary_color: "#075985", // Sky 800
+                secondary_color: "#0ea5e9", // Sky 500
+                bg_color: "#f8fafc", // Slate 50
+                text_color: "#0f172a", // Slate 900
+                surface_color: "#ffffff",
+                font_family: "Plus Jakarta Sans",
+                font_size: 16
+            };
+
+            await window.elementSdk.init({
+                defaultConfig,
+                onConfigChange: async (config) => {
+                    currentConfig = config;
+                    
+                    // Apply Colors
+                    document.body.style.backgroundColor = config.bg_color || defaultConfig.bg_color;
+                    document.body.style.color = config.text_color || defaultConfig.text_color;
+                    
+                    const nav = document.getElementById('main-nav');
+                    nav.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+                    
+                    const cta = document.getElementById('cta-button');
+                    cta.style.backgroundColor = config.primary_color || defaultConfig.primary_color;
+                    
+                    const logoIcon = document.getElementById('logo-icon');
+                    logoIcon.style.backgroundColor = config.primary_color || defaultConfig.primary_color;
+                    
+                    const heroBg = document.getElementById('hero-bg');
+                    heroBg.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, #1e1b4b)`;
+
+                    // Apply Text
+                    document.getElementById('nav-brand').textContent = config.site_name || defaultConfig.site_name;
+                    document.getElementById('footer-brand').textContent = config.site_name || defaultConfig.site_name;
+                    document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+                    document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+                    document.getElementById('about-email').textContent = config.contact_email || defaultConfig.contact_email;
+
+                    // Apply Fonts & Sizing
+                    const baseFont = config.font_family || defaultConfig.font_family;
+                    const baseSize = config.font_size || defaultConfig.font_size;
+                    
+                    document.body.style.fontFamily = `${baseFont}, sans-serif`;
+                    document.getElementById('hero-title').style.fontSize = `${baseSize * 3}px`;
+                    document.getElementById('nav-brand').style.fontSize = `${baseSize * 1.25}px`;
+                },
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        { get: () => config.bg_color || defaultConfig.bg_color, set: (c) => window.elementSdk.setConfig({ bg_color: c }) },
+                        { get: () => config.surface_color || defaultConfig.surface_color, set: (c) => window.elementSdk.setConfig({ surface_color: c }) },
+                        { get: () => config.text_color || defaultConfig.text_color, set: (c) => window.elementSdk.setConfig({ text_color: c }) },
+                        { get: () => config.primary_color || defaultConfig.primary_color, set: (c) => window.elementSdk.setConfig({ primary_color: c }) },
+                        { get: () => config.secondary_color || defaultConfig.secondary_color, set: (c) => window.elementSdk.setConfig({ secondary_color: c }) }
+                    ],
+                    fontEditable: {
+                        get: () => config.font_family || defaultConfig.font_family,
+                        set: (f) => window.elementSdk.setConfig({ font_family: f })
+                    },
+                    fontSizeable: {
+                        get: () => config.font_size || defaultConfig.font_size,
+                        set: (s) => window.elementSdk.setConfig({ font_size: s })
+                    },
+                    borderables: []
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ["site_name", config.site_name || defaultConfig.site_name],
+                    ["hero_title", config.hero_title || defaultConfig.hero_title],
+                    ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+                    ["contact_email", config.contact_email || defaultConfig.contact_email]
+                ])
+            });
+        }
+
+        // --- Bootstrap ---
+        window.addEventListener('load', () => {
+            initUI();
+            initData();
+            initElement();
+        });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dc6a25c93522704',t:'MTc3MzUyNjQ5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dc6e86f50432704',t:'MTc3MzUyOTM2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
