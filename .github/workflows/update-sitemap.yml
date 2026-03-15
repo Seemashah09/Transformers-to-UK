@@ -2,24 +2,35 @@ name: Update sitemap lastmod
 
 on:
   push:
-    branches: [ main ]  # change if your default branch is different
+    branches:
+      - main   # your branch
   workflow_dispatch:
 
 jobs:
   update-sitemap:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Set date
+    steps:
+      # Step 1: Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Update the lastmod date
+      - name: Update lastmod in sitemap.xml
         run: |
           TODAY=$(date +'%Y-%m-%d')
-          sed -i "s/{{DATE}}/$TODAY/" sitemap.xml
+          if [ -f sitemap.xml ]; then
+            sed -i "s/{{DATE}}/$TODAY/" sitemap.xml
+          else
+            echo "sitemap.xml not found!"
+            exit 1
+          fi
 
-      - name: Commit and push
+      # Step 3: Commit and push the updated sitemap
+      - name: Commit changes
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add sitemap.xml
           git commit -m "Update sitemap lastmod to $TODAY" || echo "No changes to commit"
           git push
